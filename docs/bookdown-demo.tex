@@ -88,7 +88,6 @@
 
 \usepackage{booktabs}
 
-\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
 \maketitle
 
@@ -98,84 +97,14 @@
 }
 \chapter{Intro}\label{intro}
 
+This is a compilation of notes from Colorado State's STAT520 Class from
+the fall of 2016. This course is taught by Dr.~Bailey Fosdick.
+
 \chapter{Chap 1}\label{ch1}
 
 \chapter{Literature}\label{literature}
 
 \chapter{Chapter 3 - Common Families of Distributions}\label{ch3}
-
-\section{9/21/2016}\label{section}
-
-\BeginKnitrBlock{rmddefinition}
-A \emph{single distribution} is completely specified
-(e.g.~Gamma(3,2)).\\
-A \emph{family of distributions} is defined by a functional form and
-parameter space containing more than 1 element
-(e.g.~Uniform(\(a\),\(b\));
-\(\Theta = \{(a,b) : a,b, \in \mathbb{R}\})\)
-\EndKnitrBlock{rmddefinition}
-
-\subsection{\texorpdfstring{Discrete Uniform
-\((N)\)}{Discrete Uniform (N)}}\label{discrete-uniform-n}
-
-\[P(X = x) = \frac{1}{N}; x \in \{1,2,3,...\}\]
-
-Typical example: Die\\
-\[
-\begin{aligned}
-  E[X] &= \sum_{i=1}^N i\frac{1}{N} \\
-    &= \frac{1}{N}\frac{N(N+1)}{2} \\
-    &=\frac{N+1}{2} \\
-  E[X^2] &= \sum_{i=1}^N i^2\frac{1}{N} \\
-    &= \frac{1}{N}\frac{N(N+1)(2N + 1)}{6} \\
-    &= \frac{(N+1)(2N+1)}{6} \\
-  V[X] &= E[X^2] - E[X]^2 \\
-    &= \frac{(N+1)(2N+1)}{6} - \frac{(N+1)^2}{4} \\
-    &= \frac{2(N+1)(2N+1) - 3(N+1)^2}{12} \\
-    &= \frac{(N+1)((4N+2) - (3N+3))}{12} \\
-    &= \frac{(N+1)(N-1)}{12}
-\end{aligned}
-\]
-
-\subsection{\texorpdfstring{Hypergeometric
-\((R,W,n)\)}{Hypergeometric (R,W,n)}}\label{hypergeometric-rwn}
-
-Suppose an urn has \(R\) red balls and \(W\) white balls and suppose
-\(n\) balls are sampled without replacement. Let \(T_n\) be the number
-of red balls sampled. \[
-\begin{aligned}
-  T_n &= \mbox{Hypergeometric}(R,W,n) \\
-  P(T_n = k) &= \frac{{R \choose k}{W \choose n-k}}{{R + W \choose n}}; k \in \{ \max(0, n-W), ..., \min(R,n)\}
-\end{aligned}
-\] Note that if we see \(T_n = X_1 + ... + X_n\), the \(X_i\) are
-\textbf{not} independent. \[
-\begin{aligned}
-  E[T_n] &= E[\sum X_i] = \frac{nR}{R+W} \\
-  V[T_n] &= np(1-p)\left(1 - \frac{n-1}{R+W-1}\right)
-\end{aligned}
-\] In the variance, \(np(1-p)\) is the binomial variance while
-\(\left(1 - \frac{n-1}{R+W-1}\right)\) is the \emph{finite sample
-correction}.
-
-\BeginKnitrBlock{rmdexample}
-Last Christmas, the kitchen had 10 white lights and the living room had
-20 colored lights 5 of the 30 failed. What is the probability exactly 3
-were colored?
-\EndKnitrBlock{rmdexample}
-
-Urn1:
-
-\[P(T_5 = 3) = \frac{{20 \choose 3} {10 \choose 2}}{{30 \choose 5}} \]
-
-This is a Hypergeometric(20,10,5) distribution and we're sampling the
-failed lights.
-
-Urn2:
-
-\[ P(T_{20} = 3) = \frac{{5 \choose 3} {25 \choose 17}}{{30 \choose 20}}\]
-
-This is a Hypergeometric(5,25,20) distribution and we're sampling the
-white lights.
 
 \chapter{Applications}\label{applications}
 

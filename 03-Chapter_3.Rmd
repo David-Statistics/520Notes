@@ -130,7 +130,7 @@ If $Y \sim$ Geometric($p$) then $Y$ has the *lack of memory property*.
 $$ P(Y > k +i | Y > k) = P(Y = i) $$
 for $i \geq 1$ and fixed $k \geq 1$. 
 
-**proof**:
+**Proof**:
 
 Fix $k \in \mathbb{N}$ and $i \in \mathbb{N}$, then we have
 
@@ -154,7 +154,7 @@ For the geometric distribution, we have,
 \end{aligned}
 \]
 
-**SHOULD ADD PROOFS HERE**
+**TODO: ADD PROOF & THEOREM FORMATING**
 
 ### Negative Binomial (NegBi($r,p$))
 
@@ -216,5 +216,318 @@ Let $k < n$, now given that $T_n = m$, we have
 \]
 
 ```
+
+**TODO: Add a bunch of examples for BP and introductory examples to PP**
+
+## 10/3/16
+
+### Poisson($\lambda$)
+
+$$ P(T = k) = e^{-\lambda}\frac{\lambda^k}{k!}; \qquad k = 0,1,... $$
+
+```{block2, type = 'rmdtheorem'}
+If $T \sim$ Poisson($\lambda$) then,
+
+\[
+\begin{aligned}
+  E[T] = \lambda \\
+  V[T] = \lambda
+\end{aligned}
+\]
+
+**TODO: ADD PROOF**
+
+```
+
+
+```{block2, type = 'rmdtheorem'}
+If $T \sim$ Poisson($\lambda$) and $S \sim$ Poisson($\phi$) and $T \perp S$ then,
+
+$$ T + S \sim \mbox{Poisson}(\lambda + \phi) $$
+
+**TODO: ADD PROOF**
+
+```
+
+### Poisson Process ($N_t$)
+
+Recall the experiment with U~238~:
+
+* $N_t$ = count of particles by time $t$  
+* $\nu$ = mean # of counts per unit time (intensity or rate)  
+* $\nu t$ = mean # of counts in $t$ time
+
+Thus, $N_t \sim$ Poisson($\nu t$). We denote the process as $\{N_t:t \geq 0\}$ and $N_0 = 0$.
+
+If we fix $r \in \mathbb{N}$,  
+$W_r$ = time at which the $r$^th^ count is registered (the $r$^th^ waiting time).  
+$W_r \sim$ Gamma($r$, rate = $\nu$)  
+  
+If we fix $i \in \mathbb{N}$,
+$Y_i = W_i - W_{i-1}$ (time from the $i-1$^th^ count to the $i$^th^ count)  
+$Y_i \sim$ Exponential(rate = $\nu$)  
+  
+```{block2, type = 'rmddefinition'}
+We call $\{N_t : t \geq 0\}$ a Poisson Process if,
+
+1. N_0 = 0  
+1. If $s < t$, $N_s \perp N_t - N_s$
+1. $N_{s+t} - N_t$ and $N_s$ are identically distributed
+1. $\lim_{t \to 0} \frac{P(N_t = 1)}{t} = \nu$
+1. $\lim_{t \to 0} \frac{P(N_t > 1)}{t} = 0$
+
+```
+
+### Exponential(rate = $\nu$) (mean = $1/\nu = \theta$) 
+
+The event $[Y_1 > t]$ is equivalent to the event $[N_t = 0]$ and so we derive the pdf and cdf of the exponential distribution as follows,
+
+\[
+\begin{aligned}
+  F_Y(y) &= P(Y \leq y) = 1 - P(Y > y) \\
+    &= 1 - P(N_y = 0) \\
+    &= 1 - \frac{e^{-\nu y}(\nu y)^0}{0!} \\
+    &= 1 - e^{-\nu y}; \qquad y > 0 \\
+  f_Y(y) &= \nu e^{-\nu y} = \frac{1}{\theta}e^{-y/\theta}; \qquad y > 0
+\end{aligned}
+\]
+
+```{block2, type = 'rmdtheorem'}
+**Lack of memory property**
+If $Y \sim$ Exponential(rate = $\nu$), then
+
+$$ P(Y > s + t | Y(Y > s)) = P(Y > t) $$
+  
+Proof:  
+
+\[
+\begin{aligned}
+  P(Y > s + t | P(Y > s)) &= \frac{P(Y > s+t)}{P(Y > s)} \\
+    &= \frac{e^{-\nu s - \nu t}}{e^{-\nu s}} \\
+    &= \frac{e^{-\nu s} e^{-\nu t}}{e^{-\nu s}} \\
+    &= e^{-\nu t} \\
+    &= P(Y > t)
+\end{aligned}
+\]
+
+```
+
+```{block2, type = 'rmdtheorem'}
+If $Y \sim$ Exp(rate = $\nu$) then,
+
+\[
+\begin{aligned}
+  E[Y] &= \frac{1}{\nu} = \theta \\
+  V[Y] &= \frac{1}{\nu^2} = \theta^2
+\end{aligned}
+\]
+  
+  
+**Proof:**  
+**TODO:PROOF**
+```
+
+### Gamma($r$, rate = $\nu$) (or mean = $1/\nu = \theta$)
+
+The event $[W_r > t]$ is equivalent to the event $[N_t < r]$.
+
+**TODO: Add derivation of pdf**
+\[
+\begin{aligned}
+  1 - F_{W_r}(t) &= P(N_t < r) \\
+    &= \sum_{j = 0}^{r-1} e^{-\nu t} \frac{(\nu t)^j}{j!} \\
+  f_{W_r}(t) &= \frac{\nu ^ r t^{r - 1} e^{-\nu t}}{\Gamma(r)} = \frac{t^{r-1}e^{-t/\theta}}{\theta^r \Gamma(r)}
+\end{aligned}
+\]
+
+```{block2, type = 'rmdtheorem'}
+If $W_r \sim$ Gamma($r$, rate = $\nu$), then
+\[
+\begin{aligned}
+  E[W_r] &= \frac{r}{\nu} = r\theta \\
+  V[W_r] &= \frac{r}{\nu^2} = r\theta^2
+\end{aligned}
+\]
+
+**TODO: ADD PROOF**
+
+```
+
+```{block2, type = 'rmdtheorem'}
+If $W_r \sim$ Gamma($r$, rate = $\nu$) and $W_s \sim$ Gamma($s$, rate = $\nu$) and $W_r \perp W_s$, then
+
+$$ W_r + W_s \sim \mbox{Gamma}(r+s, \mbox{rate} = \nu) $$
+
+**TODO: ADD PROOF**
+
+```
+
+```{block2, type = 'rmdtheorem'}
+**Random Location of Times of Event Occurences**
+
+Suppose $N_t = m$, then the $m$ event times constitute the ordered value of $m$ independent repetitions of a Uniform($0,t$) random variable.  
+Equivalently, suppose $W_{m+1} = t$ then the previous waiting times, $0 \leq W_1 \leq W_2 \leq ... \leq W_m \leq t$ are distributed as ordered values of $m$ indepenedent repetitions of a Uniform($0,t$) random variable.
+
+**TODO: ADD PROOF**
+
+```
+
+```{block2, type = 'rmdtheorem'}
+Suppose $s < t$ then,
+
+$$ P(N_s=k | N_t = m) = {m \choose k}\left(\frac{s}{t}\right)^k \left(1-\frac{s}{t}\right)^{m-k} $$
+
+or equivalently,
+
+$$N_s | N_t = m \sim \mbox{Binom}(m, \frac{s}{t})$$
+
+**TODO: ADD PROOF**
+
+```
+
+## 10/5/16
+
+**TODO: ADD A BUNCH OF PP EXAMPLE PROBLEMS**
+
+### Chi-squared($p$)
+Note that the $\chi^2_p$ distiribution is simply a special case of the Gamma. Specifically, $\chi^2_p \sim$ Gamma($p/2$, rate = .5).  
+Suppose $X \sim \chi^2_p$, then
+$$ f_X(x) = \frac{.5^{p/2} x^{p/2 - 1}e^{-x/2}}{\Gamma(p/2)}; \qquad x > 0 $$
+
+```{block2, type = 'rmdtheorem'}
+Suppose $X \sim \chi^2_p$, then
+
+\[
+\begin{aligned}
+  E[X] &= p \\
+  V[X] &= 2p
+\end{aligned}
+\]
+
+**Proof:**  
+Use the fact that it's a special case of the gamma.
+```
+
+### Normal($\mu,\sigma^2$)
+
+If $X \sim N(\mu, \sigma^2)$ and $\mu \in \mathbb{R}$ and $\sigma \in \mathbb{R}^+$ then,
+
+$$ f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right); \qquad x \in \mathbb{R} $$
+
+```{block2, type = 'rmdtheorem'}
+If $X \sim N(\mu, \sigma^2)$ then, $Z = \frac{X - \mu}{\sigma}$ is distributed $N(0,1)$ which is the *standard normal distribution* and has pdf,
+$$ f_Z(z) = \frac{1}{\sqrt{2\pi}}\exp\left(\frac{-z^2}{2}\right) $$
+  
+**Proof:**  
+\[
+\begin{aligned}
+  F_Z(t) &= P(Z \leq t) = P\left(\frac{X - \mu}{\sigma} \leq t\right) = P(X \leq \mu + \sigma t) \\
+    &= \int_{-\infty}^{\mu + \sigma t}\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-1}{2}\left(\frac{x-\mu}{\sigma}\right)^2\right)dx \qquad z = \frac{x - \mu}{\sigma}, dz = \frac{1}{\sigma}dx \\
+    &= \int_{\infty}^t \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(\frac{-z^2}{2}\right)\sigma dz \\
+    &= \int_{\infty}^t \frac{1}{\sqrt{2\pi}}\exp\left(\frac{-z^2}{2}\right) dz \\
+  f_Z(t) &= \frac{d}{dt}F_Z(t) \\
+    &= \frac{1}{\sqrt{2\pi}}\exp(-t^2/2)
+\end{aligned}
+\]
+
+```
+
+**Note now that any probability including normal random variables can be calculated in term of standard normal random variables.**
+
+```{block2, type = 'rmdtheorem'}
+Let $X \sim N(\mu,\sigma^2)$ then,
+\[
+\begin{aligned}
+  E[X] &= \mu \\
+  V[X] &= \sigma^2 \\
+\end{aligned}
+\]
+  
+**PROOF:**
+**TODO: ADD PROOF (USE Z)**
+
+```
+
+## 10/7/2016
+
+### Beta($\alpha, \beta$)
+
+If $X \sim$ Beta($\alpha, \beta$) then,
+$$ f_X(x) = \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha - 1}(1-x)^{\beta - 1} \qquad x \in (0,1); \alpha,\beta > 0 $$
+
+```{block2, type = 'rmdtheorem'}
+If $X \sim$ Beta($\alpha, \beta$) then,
+
+\[
+\begin{aligned}
+  E[X^n] &= \frac{B(\alpha + n, \beta)}{B(\alpha,\beta)}; \qquad B(\alpha,\beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)} \\
+  E[X] &= \frac{\alpha}{\alpha + \beta} \\
+  V[X] &= \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}
+\end{aligned}
+\]  
+  
+  
+**PROOF:**  
+**TODO: ADD PROOF**
+
+```
+
+### Cauchy($\theta$)
+
+If $X \sim$ Cauchy($\theta$), then
+
+$$ f_X(x) = \frac{1}{\pi(1 + (x - \theta)^2)} \qquad x \in \mathbb{R} $$
+Note that $\theta$ is the "center"" of the distriubtion and is symmetric about that point.
+
+```{r, echo=FALSE}
+sup = seq(-5,5,.01)
+plot(sup, dnorm(sup), type = 'l', lwd = 2, col = 'darkred', 
+     ylab = "density", xlab = 'x')
+lines(sup, dcauchy(sup), lwd = 2, col = "darkblue")
+legend("topright", legend = c("Standard Normal", "Cauchy(0)"), lwd = 2, 
+       col = c("darkred", "darkblue"))
+```
+
+```{block2, type = 'rmdtheorem'}
+If $X \sim$ Cauchy($\theta$), then
+
+$$ E[|X|] = \infty $$
+  
+  
+**PROOF:**  
+**TODO: ADD PROOF**
+
+```
+
+### Exponential Families
+
+```{block2, type = 'rmddefinition'}
+Suppose a family of distributions can be written in the format
+
+$$ f(x) = c(\theta)h(x)\exp\left(\sum_{i=1}^k w_i(\theta)t_i(\theta)\right) \qquad (1) $$
+
+the family $\mathcal{F} = \{f(x | \theta) : \theta \in \Theta\}$ is called an *exponential family*
+
+```
+
+```{block2, type = 'rmdexample'}
+*Family of Exponential Distributions*  
+
+$$\mathcal{F} = \{f(x | \theta) = \frac{1}{\theta}e^{-x/\theta}\mathbb{1}(x > 0) : \theta \in (0,\infty)\}$$
+
+Here, $c(\theta) = \frac{1}{\theta}, h(x) = \mathbb{1}(x > 0), w_1(\theta) = 1/\theta, t_1(x) = -x$. Note that this is not a unique decomposition.
+
+```
+
+```{block2, type = 'rmddefinition'}
+We have that (1) can be reexpressed in natural parameter format (cannonical form) as 
+
+$$ f(x) = \tilde{c}(\eta)h(x)\exp\left(\sum_{i=1}^k \eta_i t_i(x) \right) \qquad (2)$$
+
+The parameter space for $\eta$ is called the natural parameter space and is denoted $N$. The natural parameter space is the set of all values of the vector $\eta$ for which (2) is a density. $N = \{n \in \mathbb{R}^k : 1/\xi(\eta) < \infty\}$ and $N$ is a convex set.
+
+```
+
+
 
 
